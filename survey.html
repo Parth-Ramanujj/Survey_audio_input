@@ -1095,8 +1095,11 @@
             // Wait until blob is fully assembled
             await stopRecordingAndWait();
 
-            // ── POST via same-origin proxy to avoid CORS errors ──
-            const WEBHOOK = '/api/webhook';
+            // ── Use same-origin proxy on Vercel; direct URL on localhost ──
+            const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            const WEBHOOK = isLocal
+                ? 'https://cloud.activepieces.com/api/v1/webhooks/UWcyBeIHyqXTwGKVQm3s8/sync'
+                : '/api/webhook';
             const formData = new FormData();
             formData.append('name', name);
             formData.append('email', email);
