@@ -1095,8 +1095,8 @@
             // Wait until blob is fully assembled
             await stopRecordingAndWait();
 
-            // ── POST to ActivePieces webhook as multipart/form-data ──
-            const WEBHOOK = 'https://cloud.activepieces.com/api/v1/webhooks/UWcyBeIHyqXTwGKVQm3s8/sync';
+            // ── POST via same-origin proxy to avoid CORS errors ──
+            const WEBHOOK = '/api/webhook';
             const formData = new FormData();
             formData.append('name', name);
             formData.append('email', email);
