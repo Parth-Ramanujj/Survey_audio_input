@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voice Survey Form</title>
-    <!-- Suppress favicon 404 -->
+    <!-- Favicon -->
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -157,7 +157,7 @@
             }
         }
 
-        /* ── Live Volume Meter ── */
+        /* Volume Meter */
         .meter-row {
             display: none;
             margin-top: 12px;
@@ -199,7 +199,32 @@
             background: var(--warn);
         }
 
-        /* Silent warning */
+        /* Buttons & Success Link */
+        .download-btn,
+        .check-results-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: var(--accent2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .download-btn:hover,
+        .check-results-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .check-results-btn {
+            background: var(--accent);
+            margin-left: 10px;
+        }
+
         .silent-warn {
             display: none;
             margin-top: 10px;
@@ -216,7 +241,6 @@
             display: block;
         }
 
-        /* Error banner */
         .error-banner {
             display: none;
             background: rgba(247, 90, 90, .10);
@@ -245,18 +269,6 @@
             line-height: 1.8;
         }
 
-        .error-banner ol li strong {
-            color: var(--text);
-        }
-
-        .raw-error {
-            margin-top: 8px;
-            font-size: .78rem;
-            color: #6e7681;
-            font-family: monospace;
-        }
-
-        /* Hardware help */
         .hw-help {
             display: none;
             background: rgba(79, 142, 247, .08);
@@ -285,19 +297,6 @@
             line-height: 1.9;
         }
 
-        .hw-help ol li strong {
-            color: var(--text);
-        }
-
-        .hw-help ol li code {
-            background: var(--surface);
-            padding: 1px 5px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: .82rem;
-        }
-
-        /* Skip button */
         #skipBtn {
             display: none;
             width: 100%;
@@ -310,11 +309,6 @@
             font: 500 .88rem 'Inter', sans-serif;
             cursor: pointer;
             transition: border-color var(--tr), color var(--tr);
-        }
-
-        #skipBtn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
         }
 
         #skipBtn.show {
@@ -345,32 +339,11 @@
             background: #1a2030;
         }
 
-        .upload-zone.disabled {
-            opacity: .38;
-            cursor: not-allowed;
-        }
-
         .upload-zone.has-file {
             border-color: var(--success);
             background: rgba(61, 214, 140, .06);
         }
 
-        .upload-icon {
-            font-size: 1.6rem;
-        }
-
-        .upload-text {
-            font-size: .88rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .upload-hint {
-            font-size: .75rem;
-            color: var(--muted);
-        }
-
-        /* Form */
         .form-group {
             margin-bottom: 20px;
         }
@@ -404,17 +377,6 @@
             background: #1e2633;
         }
 
-        input:disabled,
-        textarea:disabled {
-            opacity: .38;
-            cursor: not-allowed;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
         #submitBtn {
             width: 100%;
             padding: 13px;
@@ -433,12 +395,6 @@
             cursor: not-allowed;
         }
 
-        #submitBtn:not(:disabled):hover {
-            opacity: .88;
-            transform: translateY(-1px);
-        }
-
-        /* Audio preview */
         .audio-section {
             margin-top: 28px;
             display: none;
@@ -449,35 +405,12 @@
             font-weight: 600;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: .06em;
             margin-bottom: 12px;
         }
 
         audio {
             width: 100%;
             border-radius: 8px;
-            accent-color: var(--accent);
-        }
-
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            margin-top: 10px;
-            padding: 9px 18px;
-            border-radius: 8px;
-            font: 600 .85rem 'Inter', sans-serif;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration: none;
-            transition: background var(--tr), border-color var(--tr);
-        }
-
-        .download-btn:hover {
-            background: #1e2633;
-            border-color: var(--accent);
         }
 
         /* Webhook response panel */
@@ -488,10 +421,6 @@
             border-radius: 12px;
             overflow: hidden;
             animation: fadeIn .4s ease;
-        }
-
-        .resp-panel.show {
-            display: block;
         }
 
         .resp-header {
@@ -505,7 +434,6 @@
             font-weight: 600;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: .06em;
         }
 
         .resp-status {
@@ -529,62 +457,19 @@
             padding: 16px;
             background: var(--bg);
             font-size: .85rem;
-            max-height: 340px;
+            max-height: 480px;
             overflow-y: auto;
         }
 
-        /* JSON table */
-        .resp-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .resp-table tr+tr {
-            border-top: 1px solid var(--border);
-        }
-
-        .resp-table td {
-            padding: 7px 10px;
-            vertical-align: top;
-        }
-
-        .resp-table td:first-child {
-            width: 38%;
-            color: var(--accent);
-            font-weight: 600;
-            font-family: monospace;
-            white-space: nowrap;
-        }
-
-        .resp-table td:last-child {
-            color: var(--text);
-            word-break: break-all;
-        }
-
-        /* plain-text pre */
-        .resp-pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-all;
-            font-family: monospace;
-            font-size: .82rem;
-            color: var(--text);
-        }
-
-        /* ── Markdown renderer styles ── */
+        /* Markdown renderer styles */
         .md-heading {
             font-size: .82rem;
             font-weight: 700;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: .07em;
             margin: 14px 0 6px;
             padding-bottom: 5px;
             border-bottom: 1px solid var(--border);
-        }
-
-        .md-heading:first-child {
-            margin-top: 0;
         }
 
         .md-code-wrap {
@@ -603,67 +488,47 @@
             background: var(--surface);
             border-bottom: 1px solid var(--border);
             text-transform: uppercase;
-            letter-spacing: .07em;
         }
 
         .md-code {
             margin: 0;
             padding: 12px;
-            font-family: 'Consolas', 'Fira Code', monospace;
+            font-family: monospace;
             font-size: .8rem;
             line-height: 1.55;
             white-space: pre-wrap;
-            word-break: break-all;
             color: #e6edf3;
-            overflow-x: auto;
         }
 
         .md-quote {
             background: rgba(61, 214, 140, .07);
             border-left: 3px solid var(--accent);
-            border-radius: 0 8px 8px 0;
             padding: 10px 14px;
             margin: 8px 0;
             font-style: italic;
-            color: var(--text);
-            font-size: .88rem;
-            line-height: 1.55;
         }
 
         .md-para {
             margin: 6px 0;
-            color: var(--text);
             line-height: 1.55;
         }
 
-        /* JSON syntax colours */
         .jk {
             color: #79c0ff;
         }
 
-        /* key   */
         .jv {
             color: #a5d6ff;
         }
 
-        /* string value */
         .jb {
             color: #ff7b72;
         }
 
-        /* bool/null */
         .jn {
             color: #f2cc60;
         }
 
-        /* number */
-
-        /* Increase resp-body max-height for markdown */
-        .resp-body {
-            max-height: 480px !important;
-        }
-
-        /* Success */
         .success-box {
             display: none;
             align-items: center;
@@ -678,19 +543,6 @@
 
         .success-box.show {
             display: flex;
-        }
-
-        .success-icon {
-            font-size: 1.6rem;
-        }
-
-        .success-box p {
-            font-size: .9rem;
-            line-height: 1.5;
-        }
-
-        .success-box strong {
-            color: var(--success);
         }
 
         .divider {
@@ -734,7 +586,6 @@
                 </div>
             </div>
 
-            <!-- Live volume meter (shown while recording) -->
             <div class="meter-row" id="meterRow">
                 <span class="meter-label">🎚️ Mic Level</span>
                 <div class="meter-track">
@@ -743,56 +594,28 @@
                 <span id="meterPct" style="font-size:.75rem;color:var(--muted);min-width:34px;">0%</span>
             </div>
 
-            <!-- Warns if mic is picking up silence -->
             <div class="silent-warn" id="silentWarn">
                 ⚠️ <strong>No sound detected from your microphone.</strong>
-                The meter above should move when you speak. If it doesn't, see the
-                <strong>Hardware Checklist</strong> below.
             </div>
         </div>
 
-        <!-- Microphone Error -->
-        <div class="error-banner" id="errorBanner">
-            <div class="err-title">⚠️ Microphone Access Denied</div>
-            <ol>
-                <li>Press <strong>Win + I</strong> → open <strong>Windows Settings</strong></li>
-                <li>Go to <strong>Privacy &amp; Security → Microphone</strong></li>
-                <li>Turn ON <strong>"Microphone access"</strong> and allow your browser</li>
-                <li>Reload this page and try again</li>
-            </ol>
-            <div class="raw-error" id="rawError"></div>
-        </div>
-
-        <!-- Hardware Troubleshooting (shown when meter stays at 0) -->
+        <!-- Hardware Helper -->
         <div class="hw-help" id="hwHelp">
-            <div class="hw-title">🔧 Hardware / Sound Settings Checklist</div>
+            <div class="hw-title">🔧 Troubleshooting Checklist</div>
             <ol>
-                <li><strong>Check physical mic mute button</strong> — headsets and webcams often have a hardware mute
-                    button. Make sure it's not pressed.</li>
-                <li>Right-click the speaker icon → <strong>Open Sound Settings</strong> → under <em>Input</em>, confirm
-                    the correct microphone is selected.</li>
-                <li>In Sound Settings click <strong>"Device properties"</strong> under Input — make sure
-                    <strong>Disable</strong> is NOT ticked.
-                </li>
-                <li>Click <strong>"Additional device properties"</strong> → <em>Levels</em> tab → drag microphone volume
-                    to <strong>80–100</strong>.</li>
-                <li>Open <code>mmsys.cpl</code> (Run → <code>Win+R</code>) → <em>Recording</em> tab → right-click your
-                    mic → <strong>Set as Default Device</strong>.</li>
-                <li>Check <strong>Device Manager</strong> for yellow warning icons on audio devices — reinstall driver
-                    if present.</li>
-                <li>Try a different browser (Chrome or Edge). Firefox sometimes needs extra codec support.</li>
-                <li>Try a different microphone / headset to rule out hardware failure.</li>
+                <li>Check physical mic mute button.</li>
+                <li>Verify correct input in Sound Settings.</li>
+                <li>Check browser permissions.</li>
             </ol>
         </div>
 
-        <!-- Skip fallback -->
-        <button id="skipBtn">⚠️ Skip Recording &amp; Fill Form Without Audio</button>
+        <button id="skipBtn">⚠️ Skip Recording & Fill Form Without Audio</button>
 
         <!-- Survey Form -->
         <form id="surveyForm" novalidate>
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="e.g. Priya Sharma" disabled required />
+                <input type="text" id="name" name="name" placeholder="Full name" disabled required />
             </div>
             <div class="form-group">
                 <label for="email">Email Address</label>
@@ -800,49 +623,35 @@
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <input type="number" id="age" name="age" placeholder="e.g. 28" min="1" max="120" disabled required />
+                <input type="number" id="age" name="age" placeholder="Age" disabled required />
             </div>
             <div class="form-group">
                 <label for="feedback">Feedback / Comments</label>
                 <textarea id="feedback" name="feedback" placeholder="Share your thoughts…" disabled></textarea>
             </div>
 
-            <!-- Audio Upload -->
             <div class="form-group">
-                <label for="audioUpload">Upload Audio File <span
-                        style="font-weight:400;text-transform:none;letter-spacing:0;color:#6e7681;">(optional —
-                        overrides recording)</span></label>
+                <label for="audioUpload">Upload Audio File (optional)</label>
                 <label class="upload-zone" id="uploadZone">
                     <input type="file" id="audioUpload" name="audioUpload" accept="audio/*" disabled />
                     <span class="upload-icon">🎵</span>
-                    <span class="upload-text" id="uploadText">Click to choose an audio file</span>
-                    <span class="upload-hint">MP3, WAV, WebM, OGG, M4A, etc.</span>
+                    <span class="upload-text" id="uploadText">Click to choose a file</span>
                 </label>
-                <!-- mini preview for uploaded file -->
-                <audio id="uploadPreview" controls
-                    style="display:none;width:100%;margin-top:10px;border-radius:8px;accent-color:var(--accent);"></audio>
+                <audio id="uploadPreview" controls style="display:none;width:100%;margin-top:10px;"></audio>
             </div>
 
             <hr class="divider" />
             <button type="submit" id="submitBtn" disabled>✅ Submit Survey</button>
         </form>
 
-        <!-- Audio Preview -->
-        <div class="audio-section" id="audioSection">
-            <h3>Recorded Audio Preview</h3>
-            <audio id="audioPlayer" controls></audio><br />
-            <a id="downloadLink" class="download-btn" download="survey-recording.webm">
-                ⬇️ Download Recording
-            </a>
-        </div>
-
-        <!-- Success -->
+        <!-- Success Block -->
         <div class="success-box" id="successBox">
             <span class="success-icon">🎉</span>
-            <p><strong>Submission successful!</strong><br />Your survey and audio have been saved. Thank you!</p>
+            <p><strong>Submission successful!</strong><br />Your survey has been saved.</p>
+            <a id="checkResultsBtn" class="check-results-btn" style="display:none;">🔍 Check Results</a>
         </div>
 
-        <!-- Webhook Response Panel -->
+        <!-- Responses -->
         <div class="resp-panel" id="respPanel">
             <div class="resp-header">
                 <span>📡 Webhook Response</span>
@@ -851,383 +660,197 @@
             <div id="respBody" class="resp-body"></div>
         </div>
 
+        <div class="resp-panel" id="sheetPanel">
+            <div class="resp-header">
+                <span>📊 Google Sheets Status</span>
+                <span class="resp-status" id="sheetStatus"></span>
+            </div>
+            <div id="sheetBody" class="resp-body">
+                <p class="md-para" style="color:var(--muted)">Waiting for data to sync...</p>
+            </div>
+        </div>
     </main>
 
     <script>
-        /* ── Refs ── */
         const startBtn = document.getElementById('startBtn');
         const statusBadge = document.getElementById('statusBadge');
         const statusText = document.getElementById('statusText');
         const surveyForm = document.getElementById('surveyForm');
         const submitBtn = document.getElementById('submitBtn');
-        const audioSection = document.getElementById('audioSection');
         const audioPlayer = document.getElementById('audioPlayer');
-        const downloadLink = document.getElementById('downloadLink');
         const successBox = document.getElementById('successBox');
-        const errorBanner = document.getElementById('errorBanner');
-        const rawErrEl = document.getElementById('rawError');
         const skipBtn = document.getElementById('skipBtn');
         const meterRow = document.getElementById('meterRow');
         const meterFill = document.getElementById('meterFill');
         const meterPct = document.getElementById('meterPct');
         const silentWarn = document.getElementById('silentWarn');
         const hwHelp = document.getElementById('hwHelp');
-
-        const formFields = surveyForm.querySelectorAll('input, textarea');
         const audioUploadEl = document.getElementById('audioUpload');
         const uploadZone = document.getElementById('uploadZone');
         const uploadText = document.getElementById('uploadText');
         const uploadPreview = document.getElementById('uploadPreview');
 
-        let mediaRecorder = null;
-        let audioChunks = [];
-        let audioBlob = null;
-        let micStream = null;
-        let stopResolve = null;
-        let uploadedFile = null; // set when user picks a file; overrides audioBlob on submit
+        let mediaRecorder = null, audioChunks = [], audioBlob = null, micStream = null, stopResolve = null, uploadedFile = null;
 
-        /* Audio Upload handler */
         audioUploadEl.addEventListener('change', () => {
             const file = audioUploadEl.files[0];
             if (!file) return;
             uploadedFile = file;
             uploadText.textContent = '✅ ' + file.name;
             uploadZone.classList.add('has-file');
-            const url = URL.createObjectURL(file);
-            uploadPreview.src = url;
-            uploadPreview.load();
+            uploadPreview.src = URL.createObjectURL(file);
             uploadPreview.style.display = 'block';
         });
 
-        // Web Audio analyser for live level meter
-        let audioCtx = null;
-        let analyser = null;
-        let meterRAF = null;
-        let silenceTimer = null;
-        let SILENCE_GRACE = 4000; // ms before showing silence warning
-
-        /* ── Helpers ── */
         function enableForm() {
-            formFields.forEach(f => f.disabled = false);
+            surveyForm.querySelectorAll('input, textarea').forEach(f => f.disabled = false);
             submitBtn.disabled = false;
-            // Also unlock the audio upload field
             audioUploadEl.disabled = false;
-            uploadZone.classList.remove('disabled');
             uploadZone.classList.add('enabled');
         }
 
-        function setRecordingUI(active) {
-            statusBadge.classList.toggle('recording', active);
-            statusText.textContent = active ? 'Recording…' : 'Not Recording';
-            startBtn.disabled = active;
-        }
-
-        /* ── Live Volume Meter ── */
+        /* ── Meter & Silence logic ── */
+        let audioCtx, analyser, meterRAF, silenceTimer;
         function startMeter(stream) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioCtx = new AudioContext();
             analyser = audioCtx.createAnalyser();
-            analyser.fftSize = 256;
             audioCtx.createMediaStreamSource(stream).connect(analyser);
-
             const buf = new Uint8Array(analyser.frequencyBinCount);
-
-            // Start a silence-detection timer
-            silenceTimer = setTimeout(() => {
-                silentWarn.classList.add('show');
-                hwHelp.classList.add('show');
-            }, SILENCE_GRACE);
-
+            silenceTimer = setTimeout(() => { silentWarn.classList.add('show'); hwHelp.classList.add('show'); }, 4000);
             function tick() {
                 analyser.getByteFrequencyData(buf);
-                // RMS volume, 0-100
                 const rms = Math.sqrt(buf.reduce((s, v) => s + v * v, 0) / buf.length);
                 const pct = Math.min(100, Math.round((rms / 128) * 100));
-
                 meterFill.style.width = pct + '%';
                 meterPct.textContent = pct + '%';
-                meterFill.className = 'meter-fill' +
-                    (pct < 5 ? '' : pct < 30 ? ' mid' : '');
-
-                // If any meaningful sound detected, cancel silence warning
-                if (pct > 3) {
-                    clearTimeout(silenceTimer);
-                    silenceTimer = null;
-                    silentWarn.classList.remove('show');
-                    hwHelp.classList.remove('show');
-                }
-
+                if (pct > 3) { clearTimeout(silenceTimer); silentWarn.classList.remove('show'); hwHelp.classList.remove('show'); }
                 meterRAF = requestAnimationFrame(tick);
             }
-            meterRow.classList.add('visible');
-            tick();
+            meterRow.classList.add('visible'); tick();
         }
 
         function stopMeter() {
-            if (meterRAF) { cancelAnimationFrame(meterRAF); meterRAF = null; }
-            if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
-            if (audioCtx) { audioCtx.close(); audioCtx = null; }
+            cancelAnimationFrame(meterRAF); clearTimeout(silenceTimer); if (audioCtx) audioCtx.close();
             meterRow.classList.remove('visible');
-            meterFill.style.width = '0%';
-            meterPct.textContent = '0%';
         }
 
-        /* ── Finalise audio blob ── */
-        function finaliseAudio() {
-            const type = mediaRecorder.mimeType || 'audio/webm';
-            audioBlob = new Blob(audioChunks, { type });
-
-            if (audioPlayer.src && audioPlayer.src.startsWith('blob:')) {
-                URL.revokeObjectURL(audioPlayer.src);
-            }
-
-            const url = URL.createObjectURL(audioBlob);
-            audioPlayer.src = url;
-            audioPlayer.load();   // forces browser to re-read new source
-
-            const ext = type.includes('ogg') ? 'ogg' : 'webm';
-            downloadLink.href = url;
-            downloadLink.download = 'survey-recording.' + ext;
-            audioSection.style.display = 'block';
-
-            if (micStream) micStream.getTracks().forEach(t => t.stop());
-        }
-
-        /* ── Start Recording ── */
+        /* ── Recording Controls ── */
         startBtn.addEventListener('click', async () => {
-            // Dismiss previous error state
-            errorBanner.classList.remove('show');
-            skipBtn.classList.remove('show');
-            silentWarn.classList.remove('show');
-            hwHelp.classList.remove('show');
-
             try {
-                micStream = await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        autoGainControl: true,
-                        sampleRate: 48000,
-                        channelCount: 1
-                    }
-                });
-
-                // Best codec available
-                const mimeType = [
-                    'audio/webm;codecs=opus',
-                    'audio/webm',
-                    'audio/ogg;codecs=opus',
-                    'audio/ogg'
-                ].find(m => MediaRecorder.isTypeSupported(m)) || '';
-
-                mediaRecorder = new MediaRecorder(micStream, mimeType ? { mimeType } : {});
+                micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(micStream);
                 audioChunks = [];
-
-                mediaRecorder.ondataavailable = e => {
-                    if (e.data && e.data.size > 0) audioChunks.push(e.data);
-                };
-
-                // onstop fires after ALL ondataavailable chunks — safe to build blob here
-                mediaRecorder.onstop = () => {
-                    stopMeter();
-                    finaliseAudio();
-                    if (stopResolve) { stopResolve(); stopResolve = null; }
-                };
-
-                // 250 ms timeslice: small but frequent chunks, ensures last chunk is never lost
-                mediaRecorder.start(250);
-                startMeter(micStream);   // attach live VU meter
-                setRecordingUI(true);
+                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                mediaRecorder.onstop = () => { stopMeter(); audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType }); enableForm(); };
+                mediaRecorder.start(); startMeter(micStream);
+                statusBadge.classList.add('recording'); statusText.textContent = 'Recording…'; startBtn.disabled = true;
                 enableForm();
-
-            } catch (err) {
-                errorBanner.classList.add('show');
-                rawErrEl.textContent = 'Error: ' + (err.message || err.name || err);
-                skipBtn.classList.add('show');
-                hwHelp.classList.add('show');
-                startBtn.disabled = false;
-            }
+            } catch (err) { alert("Mic error: " + err.message); skipBtn.classList.add('show'); }
         });
 
-        /* ── Skip Recording ── */
-        skipBtn.addEventListener('click', () => {
-            errorBanner.classList.remove('show');
-            hwHelp.classList.remove('show');
-            silentWarn.classList.remove('show');
-            skipBtn.classList.remove('show');
-            enableForm();
-            statusText.textContent = 'No Audio (Skipped)';
-        });
+        skipBtn.addEventListener('click', () => { skipBtn.classList.remove('show'); enableForm(); statusText.textContent = 'No Audio'; });
 
-        /* ── Stop & await onstop ── */
-        function stopRecordingAndWait() {
-            return new Promise(resolve => {
-                if (!mediaRecorder || mediaRecorder.state === 'inactive') { resolve(); return; }
-                stopResolve = resolve;
-                try { mediaRecorder.requestData(); } catch (_) { }  // flush buffered audio
+        function stopRecording() {
+            return new Promise(res => {
+                if (!mediaRecorder || mediaRecorder.state === 'inactive') return res();
+                mediaRecorder.onstop = () => { stopMeter(); audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType }); res(); };
                 mediaRecorder.stop();
-                setRecordingUI(false);
+                statusBadge.classList.remove('recording'); statusText.textContent = 'Finished';
             });
         }
 
-        /* ── Escape HTML to safely inject response text via innerHTML ── */
-        function escHtml(str) {
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;');
+        function escHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+        /* ── Markdown Renderer ── */
+        function renderMarkdown(md) {
+            let jsonSource = md.trim().replace(/^```[a-z]*\n?|```$/gi, '').trim();
+            try {
+                const data = JSON.parse(jsonSource);
+                const res = data.validation_result || data.structured_result;
+                if (res) return `<div style="font-family: monospace; white-space: pre-wrap; background: #000; padding: 12px; border-radius: 6px; border: 1px solid var(--border);">` +
+                    `<div style="color: var(--success); font-weight: 700; border-bottom: 1px solid #333; margin-bottom: 8px;">AUDIT_RESULT_PREVIEW</div>` +
+                    `SCORE: ${res.match_score || '0%'}\nSUMMARY: ${res.summary || '—'}\n` +
+                    (res.mismatched_fields?.length ? `\nMISMATCHES:\n${res.mismatched_fields.map(m => ` - [${m.field}] F:"${m.form_value}" A:"${m.transcript_value}"`).join('\n')}\n` : '') +
+                    `</div>`;
+            } catch (e) { }
+
+            const out = [];
+            md.split('\n').forEach(line => {
+                if (/^###\s/.test(line)) out.push(`<div class="md-heading">${escHtml(line.replace('###', ''))}</div>`);
+                else if (line.trim()) out.push(`<p class="md-para">${escHtml(line)}</p>`);
+            });
+            return out.join('');
+        }
+
+        function syntaxJson(s) { return escHtml(s).replace(/(".*?"):/g, '<span class="jk">$1</span>:'); }
+
+        /* ── Google Sheets Polling ── */
+        async function pollGoogleSheet(email) {
+            const panel = document.getElementById('sheetPanel'), status = document.getElementById('sheetStatus'), body = document.getElementById('sheetBody');
+            panel.style.display = 'block'; status.textContent = '⏳ Checking...';
+            const URL = 'https://docs.google.com/spreadsheets/d/17b7Adey9qYVRu6aDjQa9DxYuI0-xU7ST-xDWwnfwJ6Y/gviz/tq?tqx=out:json';
+
+            for (let i = 0; i < 30; i++) {
+                try {
+                    const r = await fetch(URL); const t = await r.text();
+                    const j = JSON.parse(t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1));
+                    const row = [...j.table.rows].reverse().find(r => r.c && r.c[1] && r.c[1].v === email);
+                    if (row && row.c[6]?.v) {
+                        status.textContent = '✅ Found'; status.className = 'resp-status ok';
+                        body.innerHTML = renderMarkdown(row.c[6].v); return;
+                    }
+                } catch (e) { }
+                status.textContent = `⏳ Polling (${i + 1}/30)...`;
+                await new Promise(r => setTimeout(r, 6000));
+            }
+            status.textContent = '⚠️ Timeout'; status.className = 'resp-status err';
         }
 
         /* ── Submit ── */
         surveyForm.addEventListener('submit', async e => {
             e.preventDefault();
+            const name = document.getElementById('name').value, email = document.getElementById('email').value, age = document.getElementById('age').value;
+            if (!name || !email) return alert("Fill required fields");
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const age = document.getElementById('age').value.trim();
-            const feedback = document.getElementById('feedback').value.trim();
+            submitBtn.textContent = '⏳ Submitting…'; submitBtn.disabled = true;
+            await stopRecording();
 
-            if (!name || !email || !age) {
-                alert('Please fill in Name, Email, and Age before submitting.');
-                return;
-            }
-
-            // Wait until blob is fully assembled
-            await stopRecordingAndWait();
-
-            // ── Use same-origin proxy on Vercel; direct URL on localhost ──
-            const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-            const WEBHOOK = isLocal
-                ? 'https://cloud.activepieces.com/api/v1/webhooks/UWcyBeIHyqXTwGKVQm3s8/sync'
-                : '/api/webhook';
             const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('age', age);
-            formData.append('feedback', feedback);
-            formData.append('submitted_at', new Date().toISOString());
+            formData.append('name', name); formData.append('email', email); formData.append('age', age);
+            formData.append('feedback', document.getElementById('feedback').value);
+            const audio = uploadedFile || (audioBlob ? new File([audioBlob], 'rec.webm') : null);
+            if (audio) formData.append('audio', audio);
 
-            // Prefer the manually uploaded file; fallback to mic recording blob
-            const audioSource = uploadedFile
-                ? uploadedFile
-                : audioBlob
-                    ? new File([audioBlob], 'survey-recording.' + (audioBlob.type.includes('ogg') ? 'ogg' : 'webm'), { type: audioBlob.type })
-                    : null;
-            if (audioSource) formData.append('audio', audioSource);
-
-            submitBtn.textContent = '⏳ Submitting…';
-            submitBtn.disabled = true;
-
-            // ── DOM refs ──
-            const respPanel = document.getElementById('respPanel');
-            const respStatus = document.getElementById('respStatus');
-            const respBody = document.getElementById('respBody');
-
-            /* ── Mini markdown → HTML (handles ActivePieces response format) ── */
-            function renderMarkdown(md) {
-                const lines = md.split('\n');
-                const out = [];
-                let i = 0;
-                while (i < lines.length) {
-                    const raw = lines[i];
-                    // ### Heading
-                    if (/^#{1,4}\s/.test(raw)) {
-                        out.push(`<div class="md-heading">${escHtml(raw.replace(/^#+\s*/, ''))}</div>`);
-                        i++; continue;
-                    }
-                    // Fenced code block  ```lang
-                    if (/^```/.test(raw)) {
-                        const lang = raw.replace(/^```/, '').trim();
-                        const codeLines = [];
-                        i++;
-                        while (i < lines.length && !/^```/.test(lines[i])) {
-                            codeLines.push(lines[i]); i++;
-                        }
-                        i++; // skip closing ```
-                        let code = codeLines.join('\n');
-                        if (lang === 'json') {
-                            try { code = JSON.stringify(JSON.parse(code), null, 2); } catch (_) { }
-                            out.push(`<div class="md-code-wrap"><div class="md-code-lang">json</div><pre class="md-code">${syntaxJson(code)}</pre></div>`);
-                        } else {
-                            out.push(`<pre class="md-code">${escHtml(code)}</pre>`);
-                        }
-                        continue;
-                    }
-                    // Blank line
-                    if (!raw.trim()) { i++; continue; }
-                    // Quoted text (starts with ")
-                    if (/^\s*"/.test(raw)) {
-                        out.push(`<div class="md-quote">${escHtml(raw.trim().replace(/^"|"$/g, ''))}</div>`);
-                        i++; continue;
-                    }
-                    // Plain paragraph
-                    out.push(`<p class="md-para">${escHtml(raw)}</p>`);
-                    i++;
-                }
-                return out.join('');
-            }
-
-            /* Light JSON syntax colouring */
-            function syntaxJson(str) {
-                return escHtml(str)
-                    .replace(/(&quot;(?:[^&]|&(?!quot;))*&quot;)\s*:/g, '<span class="jk">$1</span>:')
-                    .replace(/:\s*(&quot;(?:[^&]|&(?!quot;))*&quot;)/g, (_, v) => ': <span class="jv">' + v + '</span>')
-                    .replace(/\b(true|false|null)\b/g, '<span class="jb">$1</span>')
-                    .replace(/\b(-?\d+(?:\.\d+)?)\b/g, '<span class="jn">$1</span>');
-            }
-
-            /* ── Fetch ── */
-            let rawText = '';
-            let httpStatus = '—';
-            let isOk = false;
+            const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            const WEBHOOK = isLocal ? 'http://localhost:3001/webhook' : '/api/webhook';
 
             try {
                 const res = await fetch(WEBHOOK, { method: 'POST', body: formData });
-                isOk = res.ok;
-                httpStatus = String(res.status);
-                try { rawText = await res.text(); } catch (_) { rawText = ''; }
-            } catch (netErr) {
-                httpStatus = 'ERR';
-                rawText = netErr.message || 'Network error';
+                const text = await res.text();
+                document.getElementById('respPanel').style.display = 'block';
+                document.getElementById('respStatus').textContent = res.status + " " + res.statusText;
+                document.getElementById('respStatus').className = 'resp-status ' + (res.ok ? 'ok' : 'err');
+                document.getElementById('respBody').innerHTML = renderMarkdown(text);
+            } catch (err) {
+                // Fallback for CORS in local dev
+                if (isLocal) {
+                    await fetch(WEBHOOK, { method: 'POST', body: formData, mode: 'no-cors' });
+                    document.getElementById('respBody').innerHTML = "<p>Sent (No-CORS Fallback). Check results below.</p>";
+                }
             }
 
-            /* ── Status badge ── */
-            respStatus.textContent = httpStatus === 'ERR' ? 'Network Error' : httpStatus + (isOk ? ' OK' : ' Error');
-            respStatus.className = 'resp-status ' + (isOk ? 'ok' : 'err');
-
-            /* ── Render body ── */
-            if (!rawText.trim()) {
-                respBody.innerHTML = `<em style="color:var(--muted);font-size:.85rem">(empty response)</em>`;
-            } else if (/^\s*[{[]/.test(rawText)) {
-                // Pure JSON response
-                try {
-                    const j = JSON.parse(rawText);
-                    respBody.innerHTML = `<div class="md-code-wrap"><div class="md-code-lang">json</div><pre class="md-code">${syntaxJson(JSON.stringify(j, null, 2))}</pre></div>`;
-                } catch (_) { respBody.innerHTML = renderMarkdown(rawText); }
-            } else {
-                // Markdown / plain text (ActivePieces returns markdown)
-                respBody.innerHTML = renderMarkdown(rawText);
-            }
-
-            /* ── Always show the panel ── */
-            respPanel.style.display = 'block';
-            respPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-            // ── Auto-download audio locally as well ──
-            if (audioBlob) {
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(audioBlob);
-                link.download = audioBlob.type.includes('ogg') ? 'survey-recording.ogg' : 'survey-recording.webm';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-
-            formFields.forEach(f => f.disabled = true);
-            submitBtn.disabled = true;
-            submitBtn.textContent = '✅ Submitted';
             successBox.classList.add('show');
-            successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const checkBtn = document.getElementById('checkResultsBtn');
+            checkBtn.style.display = 'inline-block';
+            checkBtn.href = `results.html?email=${encodeURIComponent(email)}`;
+
+            if (audioBlob) {
+                const reader = new FileReader();
+                reader.onloadend = () => sessionStorage.setItem('lastAudio', reader.result);
+                reader.readAsDataURL(audioBlob);
+            }
+
+            pollGoogleSheet(email);
         });
     </script>
 </body>

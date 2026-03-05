@@ -1,0 +1,14 @@
+{
+    "name": "survey-audio-ai-audit",
+    "version": "1.0.0",
+    "description": "Voice survey with AI audit comparison",
+    "main": "index.html",
+    "scripts": {
+        "start": "vercel dev",
+        "deploy": "vercel --prod"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {}
+}

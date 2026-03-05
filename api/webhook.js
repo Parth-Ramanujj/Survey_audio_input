@@ -5,6 +5,8 @@ export const config = {
     api: {
         bodyParser: false, // We forward the raw request body (multipart/form-data)
     },
+    // Vercel max function duration (seconds) — Pro plan allows up to 300s
+    maxDuration: 180,
 };
 
 export default async function handler(req, res) {
@@ -23,20 +25,24 @@ export default async function handler(req, res) {
         }
         const body = Buffer.concat(chunks);
 
-        // Forward to ActivePieces with the same Content-Type header
+        // Forward to ActivePieces with 3-minute timeout
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 170000); // 170s
+
         const upstream = await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': req.headers['content-type'] || 'application/octet-stream',
             },
             body,
+            signal: controller.signal,
         });
 
+        clearTimeout(timeout);
         const text = await upstream.text();
 
         // Mirror status and forward response body
         res.status(upstream.status);
-        // Copy content-type from upstream if present
         const ct = upstream.headers.get('content-type');
         if (ct) res.setHeader('Content-Type', ct);
         res.send(text);

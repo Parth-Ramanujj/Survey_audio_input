@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results - AI Audit comparison</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.9);
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-heading: #f0f6fc;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warn: #d29922;
+            --danger: #f85149;
+            --muted: #8b949e;
+            --form-color: #7c5af7;
+            --ai-color: #3dd68c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        header.page-header {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            color: var(--text-heading);
+        }
+
+        .page-header p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.5s ease-out;
+        }
+
+        .comparison-container.show {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 850px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pane {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .pane-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pane-title {
+            font-family: 'Outfit';
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .form-pane {
+            border-left: 4px solid var(--form-color);
+        }
+
+        .ai-pane {
+            border-left: 4px solid var(--ai-color);
+        }
+
+        .data-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .field-label {
+            color: var(--muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .field-value {
+            color: var(--text-heading);
+            font-size: 1rem;
+        }
+
+        .comment-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 4px;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .audio-section {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        audio {
+            width: 100%;
+            height: 32px;
+            margin-top: 8px;
+        }
+
+        /* Raw report styles */
+        .raw-report {
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            background: #000;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .report-label {
+            color: var(--muted);
+        }
+
+        .report-mismatch {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .report-success {
+            color: var(--success);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>🔍 Audit Comparison</h1>
+        <p>Form Data vs AI Analysis</p>
+    </header>
+
+    <main>
+        <a href="survey.html" class="back-btn">← Back to Survey</a>
+
+        <div id="loading" class="loading-state">
+            <h2 style="margin:0; font-family:'Outfit';">🔄 Running Cross-Check...</h2>
+            <p id="retryStatus" style="margin-top:10px; color: var(--muted);">Checking Google Sheet for latest sync...
+            </p>
+        </div>
+
+        <div id="resultsLayout" class="comparison-container" style="display:none;">
+            <div class="pane form-pane">
+                <div class="pane-header">
+                    <div class="pane-title" style="color:var(--form-color)">📝 Form Submission</div>
+                </div>
+
+                <div id="audioWrap" class="audio-section" style="display:none;">
+                    <div class="field-label">Recorded Audio</div>
+                    <audio id="audioPlayer" controls></audio>
+                </div>
+
+                <div class="data-list">
+                    <div class="data-row">
+                        <div class="field-label">Name</div>
+                        <div id="f-name" class="field-value">—</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="field-label">Email</div>
+                        <div id="f-email" class="field-value">—</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="field-label">Age</div>
+                        <div id="f-age" class="field-value">—</div>
+                    </div>
+                    <div class="data-row">
+                        <div class="field-label">Feedback</div>
+                        <div id="f-feedback" class="comment-box">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pane ai-pane">
+                <div class="pane-header">
+                    <div class="pane-title" style="color:var(--ai-color)">🤖 AI Match Result</div>
+                </div>
+                <div id="match-data"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const email = new URLSearchParams(window.location.search).get('email');
+        if (!email) {
+            document.getElementById('loading').innerHTML = `<h2 style="color:var(--warn)">⚠️ Missing Email</h2><a href="survey.html" class="back-btn">Return to Form</a>`;
+        } else {
+            pollData(email);
+        }
+
+        function formatMatch(md) {
+            let json = md.trim().replace(/^```[a-z]*\n?|```$/gi, '').trim();
+            try {
+                const data = JSON.parse(json);
+                const res = data.validation_result || data.structured_result;
+                if (res) {
+                    let h = `<div class="raw-report">`;
+                    h += `<div style="color:var(--ai-color); font-weight:bold; border-bottom:1px solid #333; margin-bottom:10px; padding-bottom:5px;">AUDIT_RESULT_RAW_REPORT</div>`;
+                    h += `<span class="report-label">MATCH_SCORE:</span> ${res.match_score || '0%'}\n`;
+                    h += `<span class="report-label">SUMMARY:</span> ${res.summary || '—'}\n`;
+
+                    if (res.mismatched_fields?.length) {
+                        h += `\n<span class="report-mismatch">MISMATCHES:</span>\n`;
+                        res.mismatched_fields.forEach(m => {
+                            h += `  - [${m.field}]\n    FORM: "${m.form_value}"\n    AUDIO: "${m.transcript_value}"\n`;
+                        });
+                    }
+                    if (res.missing_fields?.length) h += `\n<span class="report-label">MISSING FROM AUDIO:</span> [ ${res.missing_fields.join(', ')} ]\n`;
+                    if (res.matched_fields?.length) h += `\n<span class="report-success">MATCHED FIELDS:</span> [ ${res.matched_fields.join(', ')} ]\n`;
+                    if (data.user_message) h += `\n<span style="color:var(--accent)">MESSAGE:</span>\n"${data.user_message}"\n`;
+
+                    return h + `</div>`;
+                }
+            } catch (e) { }
+            return md.split('\n').map(l => `<p>${l}</p>`).join('');
+        }
+
+        const savedAudio = sessionStorage.getItem('lastAudio');
+        if (savedAudio) {
+            document.getElementById('audioWrap').style.display = 'block';
+            document.getElementById('audioPlayer').src = savedAudio;
+        }
+
+        async function pollData(email) {
+            const URL = 'https://docs.google.com/spreadsheets/d/17b7Adey9qYVRu6aDjQa9DxYuI0-xU7ST-xDWwnfwJ6Y/gviz/tq?tqx=out:json';
+            for (let i = 0; i < 40; i++) {
+                try {
+                    const r = await fetch(URL); const t = await r.text();
+                    const j = JSON.parse(t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1));
+                    const row = [...j.table.rows].reverse().find(r => r.c && r.c[1] && r.c[1].v === email);
+                    if (row) {
+                        document.getElementById('f-name').textContent = row.c[0]?.v || '—';
+                        document.getElementById('f-email').textContent = row.c[1]?.v || '—';
+                        document.getElementById('f-age').textContent = row.c[2]?.v || '—';
+                        document.getElementById('f-feedback').textContent = row.c[3]?.v || '(None)';
+
+                        if (row.c[6]?.v) {
+                            document.getElementById('loading').style.display = 'none';
+                            const layout = document.getElementById('resultsLayout');
+                            layout.style.display = 'grid'; setTimeout(() => layout.classList.add('show'), 50);
+                            document.getElementById('match-data').innerHTML = formatMatch(row.c[6].v);
+                            return;
+                        }
+                    }
+                } catch (e) { }
+                document.getElementById('retryStatus').textContent = `Syncing... (${i + 1}/40)`;
+                await new Promise(r => setTimeout(r, 6000));
+            }
+            document.getElementById('loading').innerHTML = `<h2>⏲️ Timeout</h2><p>Check the sheet directly or retry.</p>`;
+        }
+    </script>
+</body>
+
+</html>
